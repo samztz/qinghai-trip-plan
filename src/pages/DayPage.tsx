@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, MapPin, Clock, Mountain } from 'lucide-react'
 import QuoteBlock from '../components/QuoteBlock'
 import SpotCard from '../components/SpotCard'
 import DayFloatNav from '../components/DayFloatNav'
+import DayGearAdvice from '../components/DayGearAdvice'
 import { DayPlan } from '../data/journal'
 import './DayPage.css'
 
@@ -41,6 +42,8 @@ export default function DayPage({ days }: DayPageProps) {
       <div className="day-quote">
         <QuoteBlock text={day.quote} size="lg" />
       </div>
+
+      <DayGearAdvice advice={day.gearAdvice} />
 
       <section className="day-spots">
         {day.spots.map((spot, index) => (

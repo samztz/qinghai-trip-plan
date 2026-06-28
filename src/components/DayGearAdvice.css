@@ -1,0 +1,63 @@
+.day-gear-advice {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px dashed rgba(196, 169, 125, 0.5);
+  border-radius: var(--radius-md);
+  box-shadow: 0 3px 12px var(--shadow);
+}
+
+.day-gear-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--space-sm);
+  color: var(--accent-terracotta);
+}
+
+.day-gear-header h3 {
+  font-size: 1rem;
+  font-family: var(--font-serif);
+}
+
+.day-gear-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.day-gear-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+.gear-icon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.gear-bring {
+  color: var(--accent-blue);
+}
+
+.gear-wear {
+  color: var(--accent-gold);
+}
+
+.gear-alert {
+  color: var(--accent-terracotta);
+}
+
+@media (min-width: 768px) {
+  .day-gear-advice {
+    padding: var(--space-lg);
+  }
+
+  .day-gear-list li {
+    font-size: 0.95rem;
+  }
+}
