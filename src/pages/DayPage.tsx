@@ -1,7 +1,8 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, MapPin, Clock, Mountain, Home } from 'lucide-react'
+import { ArrowLeft, ArrowRight, MapPin, Clock, Mountain } from 'lucide-react'
 import QuoteBlock from '../components/QuoteBlock'
 import SpotCard from '../components/SpotCard'
+import DayFloatNav from '../components/DayFloatNav'
 import { DayPlan } from '../data/journal'
 import './DayPage.css'
 
@@ -23,12 +24,7 @@ export default function DayPage({ days }: DayPageProps) {
 
   return (
     <div className="day-page fade-in">
-      <nav className="day-breadcrumb">
-        <Link to="/" className="breadcrumb-link">
-          <Home size={14} />
-          <span>返回首页</span>
-        </Link>
-      </nav>
+      <DayFloatNav currentDayId={day.id} totalDays={days.length} />
 
       <header className="day-header" style={{ backgroundImage: `linear-gradient(rgba(61,53,46,0.35), rgba(61,53,46,0.5)), url(/images/${day.image})` }}>
         <div className="day-header-content">

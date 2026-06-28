@@ -2,22 +2,6 @@
   padding-bottom: var(--space-xl);
 }
 
-.day-breadcrumb {
-  margin-bottom: var(--space-md);
-}
-
-.breadcrumb-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.4rem 0.8rem;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: var(--radius-md);
-  font-size: 0.85rem;
-  color: var(--ink-light);
-  box-shadow: 0 2px 8px var(--shadow);
-}
-
 .day-header {
   position: relative;
   min-height: 260px;
