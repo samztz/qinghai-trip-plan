@@ -6,6 +6,19 @@
   margin-bottom: var(--space-lg);
 }
 
+.spot-image {
+  width: 100%;
+  height: 130px;
+  overflow: hidden;
+}
+
+.spot-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.88) contrast(0.96);
+}
+
 .spot-header {
   display: flex;
   align-items: center;

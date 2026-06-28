@@ -11,6 +11,12 @@ interface SpotCardProps {
 export default function SpotCard({ spot, index }: SpotCardProps) {
   return (
     <article className="spot-card fade-in" style={{ animationDelay: `${index * 80}ms` }}>
+      {spot.image && (
+        <div className="spot-image">
+          <img src={`/images/${spot.image}`} alt={spot.name} loading="lazy" />
+        </div>
+      )}
+
       <div className="spot-header">
         <div className="spot-pin">
           <MapPin size={16} />
