@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { useLocation } from 'react-router-dom'
 import BottomNav from './BottomNav'
+import BackgroundDecorations from './BackgroundDecorations'
 import './Layout.css'
 
 interface LayoutProps {
@@ -13,6 +14,7 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="layout">
+      <BackgroundDecorations />
       <main className={`layout-main ${isDayPage ? 'day-view' : ''}`}>
         {children}
       </main>
