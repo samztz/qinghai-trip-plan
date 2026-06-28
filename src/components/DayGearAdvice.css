@@ -52,6 +52,10 @@
   color: var(--accent-terracotta);
 }
 
+.gear-default {
+  color: var(--ink-light);
+}
+
 @media (min-width: 768px) {
   .day-gear-advice {
     padding: var(--space-lg);

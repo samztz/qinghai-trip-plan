@@ -1,8 +1,15 @@
-import { Backpack, Shirt, AlertCircle } from 'lucide-react'
+import { Backpack, Shirt, AlertCircle, CheckCircle2 } from 'lucide-react'
 import './DayGearAdvice.css'
 
 interface DayGearAdviceProps {
   advice: string[]
+}
+
+function detectType(item: string): 'bring' | 'wear' | 'alert' | 'default' {
+  if (item.includes('携带') || item.includes('带')) return 'bring'
+  if (item.includes('穿着') || item.includes('穿') || item.includes('鞋')) return 'wear'
+  if (item.includes('注意') || item.includes('应急') || item.includes('提醒') || item.includes('小心')) return 'alert'
+  return 'default'
 }
 
 export default function DayGearAdvice({ advice }: DayGearAdviceProps) {
@@ -15,14 +22,18 @@ export default function DayGearAdvice({ advice }: DayGearAdviceProps) {
         <h3>今日装备建议</h3>
       </div>
       <ul className="day-gear-list">
-        {advice.map((item, index) => (
-          <li key={index}>
-            {item.startsWith('🎒') && <Backpack size={14} className="gear-icon gear-bring" />}
-            {item.startsWith('👕') && <Shirt size={14} className="gear-icon gear-wear" />}
-            {item.startsWith('⚠️') && <AlertCircle size={14} className="gear-icon gear-alert" />}
-            <span>{item}</span>
-          </li>
-        ))}
+        {advice.map((item, index) => {
+          const type = detectType(item)
+          return (
+            <li key={index}>
+              {type === 'bring' && <Backpack size={14} className="gear-icon gear-bring" />}
+              {type === 'wear' && <Shirt size={14} className="gear-icon gear-wear" />}
+              {type === 'alert' && <AlertCircle size={14} className="gear-icon gear-alert" />}
+              {type === 'default' && <CheckCircle2 size={14} className="gear-icon gear-default" />}
+              <span>{item}</span>
+            </li>
+          )
+        })}
       </ul>
     </section>
   )
