@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Home, Calendar, Backpack, Heart, Menu, X } from 'lucide-react'
 import './BottomNav.css'
 
@@ -16,10 +16,50 @@ const navItems: NavItem[] = [
   { to: '/#closing', icon: <Heart size={20} />, label: '结语' },
 ]
 
+function useScrollToHash() {
+  const { pathname, hash } = useLocation()
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '')
+      const element = document.getElementById(id)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    } else if (pathname === '/' && !hash) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [pathname, hash])
+}
+
 export default function BottomNav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const navigate = useNavigate()
+  const { pathname, hash } = useLocation()
 
-  // Close menu on route change or escape key
+  useScrollToHash()
+
+  const handleNavClick = (to: string) => {
+    setMenuOpen(false)
+
+    if (to.startsWith('/#')) {
+      const id = to.replace('/#', '')
+      if (pathname === '/') {
+        // Already on home page, just scroll
+        const element = document.getElementById(id)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      } else {
+        // Navigate to home, then scroll after render
+        navigate('/#' + id)
+      }
+    } else {
+      navigate(to)
+    }
+  }
+
+  // Close menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setMenuOpen(false)
@@ -40,19 +80,29 @@ export default function BottomNav() {
     }
   }, [menuOpen])
 
+  const isActive = (to: string) => {
+    if (to.startsWith('/#')) {
+      return pathname === '/' && hash === to.replace('/', '')
+    }
+    if (to === '/day/1') {
+      return pathname.startsWith('/day/')
+    }
+    return pathname === to
+  }
+
   return (
     <>
       {/* Mobile bottom bar */}
       <nav className="bottom-nav mobile-nav" aria-label="主导航">
         {navItems.map((item) => (
-          <NavLink
+          <button
             key={item.to}
-            to={item.to}
-            className={({ isActive }) => (isActive ? 'active' : '')}
+            className={isActive(item.to) ? 'active' : ''}
+            onClick={() => handleNavClick(item.to)}
           >
             {item.icon}
             <span>{item.label}</span>
-          </NavLink>
+          </button>
         ))}
       </nav>
 
@@ -91,15 +141,14 @@ export default function BottomNav() {
         </div>
         <div className="desktop-nav-items">
           {navItems.map((item) => (
-            <NavLink
+            <button
               key={item.to}
-              to={item.to}
-              className={({ isActive }) => (isActive ? 'active' : '')}
-              onClick={() => setMenuOpen(false)}
+              className={isActive(item.to) ? 'active' : ''}
+              onClick={() => handleNavClick(item.to)}
             >
               {item.icon}
               <span>{item.label}</span>
-            </NavLink>
+            </button>
           ))}
         </div>
       </nav>
