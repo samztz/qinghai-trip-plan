@@ -1,0 +1,35 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.badge-default {
+  background: var(--paper-dark);
+  color: var(--ink);
+}
+
+.badge-blue {
+  background: rgba(91, 143, 168, 0.14);
+  color: var(--accent-blue);
+}
+
+.badge-terracotta {
+  background: rgba(184, 107, 83, 0.12);
+  color: var(--accent-terracotta);
+}
+
+.badge-gold {
+  background: rgba(196, 169, 125, 0.2);
+  color: #8c7348;
+}
+
+.badge-charcoal {
+  background: rgba(44, 44, 44, 0.08);
+  color: var(--accent-charcoal);
+}

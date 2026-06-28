@@ -1,0 +1,33 @@
+.quote-block {
+  position: relative;
+  margin: 0;
+  padding: var(--space-md) var(--space-lg);
+  background: linear-gradient(135deg, var(--paper-dark) 0%, rgba(255, 255, 255, 0.4) 100%);
+  border-left: 4px solid var(--accent-gold);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-light);
+}
+
+.quote-sm {
+  font-size: 0.95rem;
+}
+
+.quote-md {
+  font-size: 1.05rem;
+}
+
+.quote-lg {
+  font-size: 1.25rem;
+  padding: var(--space-lg);
+}
+
+.quote-mark {
+  color: var(--accent-gold);
+  font-family: Georgia, serif;
+  font-size: 1.4em;
+  line-height: 0;
+  vertical-align: middle;
+  margin: 0 0.15em;
+}

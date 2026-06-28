@@ -1,0 +1,122 @@
+.spot-card {
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 20px var(--shadow);
+  overflow: hidden;
+  margin-bottom: var(--space-lg);
+}
+
+.spot-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, var(--paper-dark) 0%, rgba(255, 255, 255, 0.4) 100%);
+  border-bottom: 1px dashed rgba(61, 53, 46, 0.12);
+}
+
+.spot-pin {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-terracotta);
+  color: #fff;
+  border-radius: 50%;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.spot-pin svg {
+  margin-bottom: -2px;
+}
+
+.spot-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.spot-title h3 {
+  font-size: 1.15rem;
+}
+
+.spot-body {
+  padding: var(--space-md);
+}
+
+.spot-section {
+  margin-bottom: var(--space-md);
+}
+
+.spot-section:last-child {
+  margin-bottom: 0;
+}
+
+.spot-section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-terracotta);
+}
+
+.spot-paragraph {
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  line-height: 1.8;
+  margin-bottom: 0.6rem;
+}
+
+.spot-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.spot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.spot-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  line-height: 1.7;
+}
+
+.spot-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.spot-tips .spot-section-title {
+  color: #b85c3e;
+}
+
+.spot-tips .spot-list li::before {
+  content: '!';
+  color: var(--accent-terracotta);
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .spot-body {
+    padding: var(--space-lg);
+  }
+
+  .spot-title h3 {
+    font-size: 1.35rem;
+  }
+}

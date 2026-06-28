@@ -1,0 +1,15 @@
+.home-page > section {
+  position: relative;
+}
+
+.home-page > section::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(61, 53, 46, 0.1), transparent);
+  margin-top: var(--space-xl);
+}
+
+.home-page > section:last-child::after {
+  display: none;
+}

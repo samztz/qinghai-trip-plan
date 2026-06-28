@@ -1,0 +1,73 @@
+.trip-threads {
+  padding: var(--space-xl) 0;
+}
+
+.threads-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.thread-card {
+  position: relative;
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 4px 14px var(--shadow);
+  overflow: hidden;
+}
+
+.thread-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+}
+
+.thread-blue::before {
+  background: var(--accent-blue);
+}
+
+.thread-gold::before {
+  background: var(--accent-gold);
+}
+
+.thread-charcoal::before {
+  background: var(--accent-charcoal);
+}
+
+.thread-number {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(61, 53, 46, 0.08);
+  line-height: 1;
+}
+
+.thread-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.thread-card p {
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  line-height: 1.75;
+}
+
+@media (min-width: 768px) {
+  .threads-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .thread-card {
+    flex: 1 1 calc(33.333% - var(--space-md));
+    min-width: 220px;
+  }
+}

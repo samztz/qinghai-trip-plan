@@ -1,0 +1,23 @@
+.section-title {
+  margin-bottom: var(--space-lg);
+}
+
+.section-title h2 {
+  font-size: 1.5rem;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+}
+
+.section-title p {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--ink-light);
+}
+
+.section-line {
+  margin-top: var(--space-sm);
+  width: 48px;
+  height: 3px;
+  background: var(--accent-gold);
+  border-radius: 2px;
+}
