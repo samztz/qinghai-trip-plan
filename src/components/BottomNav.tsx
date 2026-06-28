@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Home, Calendar, Backpack, Heart, Menu, X } from 'lucide-react'
 import './BottomNav.css'
@@ -7,17 +7,19 @@ interface NavItem {
   to: string
   icon: React.ReactNode
   label: string
+  id?: string
 }
 
 const navItems: NavItem[] = [
   { to: '/', icon: <Home size={20} />, label: '首页' },
   { to: '/day/1', icon: <Calendar size={20} />, label: '行程' },
-  { to: '/#gear', icon: <Backpack size={20} />, label: '装备' },
-  { to: '/#closing', icon: <Heart size={20} />, label: '结语' },
+  { to: '/#gear', icon: <Backpack size={20} />, label: '装备', id: 'gear' },
+  { to: '/#closing', icon: <Heart size={20} />, label: '结语', id: 'closing' },
 ]
 
 function useScrollToHash() {
   const { pathname, hash } = useLocation()
+  const initialScrollDone = useRef(false)
 
   useEffect(() => {
     if (hash) {
@@ -26,18 +28,77 @@ function useScrollToHash() {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' })
       }
-    } else if (pathname === '/' && !hash) {
+    } else if (pathname === '/' && !hash && initialScrollDone.current) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+    initialScrollDone.current = true
   }, [pathname, hash])
 }
 
 export default function BottomNav() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('home')
   const navigate = useNavigate()
   const { pathname, hash } = useLocation()
 
   useScrollToHash()
+
+  // Track scroll position on home page to update active section
+  useEffect(() => {
+    if (pathname !== '/') {
+      return
+    }
+
+    const sections = [
+      { id: 'top', element: null as Element | null },
+      { id: 'gear', element: document.getElementById('gear') },
+      { id: 'closing', element: document.getElementById('closing') },
+    ]
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id || 'top'
+            setActiveSection(sectionId)
+          }
+        })
+      },
+      {
+        rootMargin: '-40% 0px -55% 0px',
+        threshold: 0,
+      }
+    )
+
+    sections.forEach((section) => {
+      if (section.element) {
+        observer.observe(section.element)
+      }
+    })
+
+    // Observe the top of the page
+    const topMarker = document.querySelector('.home-page')
+    if (topMarker) {
+      observer.observe(topMarker)
+    }
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [pathname])
+
+  // Set initial active section based on hash
+  useEffect(() => {
+    if (pathname === '/') {
+      if (hash === '#gear') {
+        setActiveSection('gear')
+      } else if (hash === '#closing') {
+        setActiveSection('closing')
+      } else {
+        setActiveSection('top')
+      }
+    }
+  }, [pathname, hash])
 
   const handleNavClick = (to: string) => {
     setMenuOpen(false)
@@ -45,13 +106,12 @@ export default function BottomNav() {
     if (to.startsWith('/#')) {
       const id = to.replace('/#', '')
       if (pathname === '/') {
-        // Already on home page, just scroll
         const element = document.getElementById(id)
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          setActiveSection(id)
         }
       } else {
-        // Navigate to home, then scroll after render
         navigate('/#' + id)
       }
     } else {
@@ -81,13 +141,16 @@ export default function BottomNav() {
   }, [menuOpen])
 
   const isActive = (to: string) => {
-    if (to.startsWith('/#')) {
-      return pathname === '/' && hash === to.replace('/', '')
+    if (to === '/#gear') {
+      return pathname === '/' && activeSection === 'gear'
+    }
+    if (to === '/#closing') {
+      return pathname === '/' && activeSection === 'closing'
     }
     if (to === '/day/1') {
       return pathname.startsWith('/day/')
     }
-    return pathname === to
+    return pathname === '/' && activeSection === 'top'
   }
 
   return (
