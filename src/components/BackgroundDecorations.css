@@ -1,7 +1,7 @@
 .background-decorations {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
 }
@@ -11,13 +11,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.09;
+  color: #c4a97d;
+  opacity: 0.14;
   transition: opacity 0.5s ease;
-  animation: floatDecor 8s ease-in-out infinite;
+  animation: floatDecor 10s ease-in-out infinite;
 }
 
 .bg-decoration:hover {
-  opacity: 0.18;
+  opacity: 0.28;
 }
 
 @keyframes floatDecor {
@@ -26,12 +27,12 @@
     transform: translateY(0) rotate(var(--rotate, 45deg));
   }
   50% {
-    transform: translateY(-10px) rotate(var(--rotate, 45deg));
+    transform: translateY(-8px) rotate(var(--rotate, 45deg));
   }
 }
 
 @media (min-width: 768px) {
   .bg-decoration {
-    opacity: 0.07;
+    opacity: 0.12;
   }
 }

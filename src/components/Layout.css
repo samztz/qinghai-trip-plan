@@ -5,6 +5,8 @@
 }
 
 .layout-main {
+  position: relative;
+  z-index: 1;
   flex: 1;
   padding: var(--space-md);
   padding-bottom: calc(var(--space-md) + 72px);
