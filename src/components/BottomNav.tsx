@@ -1,6 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Home, Calendar, Backpack, Heart, Menu, X } from 'lucide-react'
+import {
+  Home,
+  BookOpen,
+  Calendar,
+  FileText,
+  Backpack,
+  ShieldAlert,
+  Heart,
+  Menu,
+  X,
+} from 'lucide-react'
 import './BottomNav.css'
 
 interface NavItem {
@@ -8,14 +18,20 @@ interface NavItem {
   icon: React.ReactNode
   label: string
   id?: string
+  mobile?: boolean
 }
 
 const navItems: NavItem[] = [
-  { to: '/', icon: <Home size={20} />, label: '首页' },
-  { to: '/day/1', icon: <Calendar size={20} />, label: '行程' },
-  { to: '/#gear', icon: <Backpack size={20} />, label: '装备', id: 'gear' },
+  { to: '/', icon: <Home size={20} />, label: '首页', mobile: true },
+  { to: '/#pretrip', icon: <BookOpen size={20} />, label: '必读', id: 'pretrip', mobile: true },
+  { to: '/day/1', icon: <Calendar size={20} />, label: '行程', mobile: true },
+  { to: '/#summary', icon: <FileText size={20} />, label: '精简', id: 'summary' },
+  { to: '/#gear', icon: <Backpack size={20} />, label: '装备', id: 'gear', mobile: true },
+  { to: '/#safety', icon: <ShieldAlert size={20} />, label: '安全', id: 'safety', mobile: true },
   { to: '/#closing', icon: <Heart size={20} />, label: '结语', id: 'closing' },
 ]
+
+const mobileNavItems = navItems.filter((item) => item.mobile !== false)
 
 function useScrollToHash() {
   const { pathname, hash } = useLocation()
@@ -49,18 +65,17 @@ export default function BottomNav() {
       return
     }
 
-    const sections = [
-      { id: 'top', element: null as Element | null },
-      { id: 'gear', element: document.getElementById('gear') },
-      { id: 'closing', element: document.getElementById('closing') },
-    ]
+    const sectionIds = ['pretrip', 'summary', 'gear', 'safety', 'closing']
+    const sections = sectionIds.map((id) => ({
+      id,
+      element: document.getElementById(id),
+    }))
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const sectionId = entry.target.id || 'top'
-            setActiveSection(sectionId)
+            setActiveSection(entry.target.id || 'top')
           }
         })
       },
@@ -90,10 +105,11 @@ export default function BottomNav() {
   // Set initial active section based on hash
   useEffect(() => {
     if (pathname === '/') {
-      if (hash === '#gear') {
-        setActiveSection('gear')
-      } else if (hash === '#closing') {
-        setActiveSection('closing')
+      const sectionId = hash.replace('#', '')
+      if (sectionId && navItems.some((item) => item.id === sectionId)) {
+        setActiveSection(sectionId)
+      } else if (hash) {
+        setActiveSection(sectionId)
       } else {
         setActiveSection('top')
       }
@@ -141,23 +157,24 @@ export default function BottomNav() {
   }, [menuOpen])
 
   const isActive = (to: string) => {
-    if (to === '/#gear') {
-      return pathname === '/' && activeSection === 'gear'
+    if (to === '/') {
+      return pathname === '/' && activeSection === 'top'
     }
-    if (to === '/#closing') {
-      return pathname === '/' && activeSection === 'closing'
+    if (to.startsWith('/#')) {
+      const id = to.replace('/#', '')
+      return pathname === '/' && activeSection === id
     }
     if (to === '/day/1') {
       return pathname.startsWith('/day/')
     }
-    return pathname === '/' && activeSection === 'top'
+    return false
   }
 
   return (
     <>
       {/* Mobile bottom bar */}
       <nav className="bottom-nav mobile-nav" aria-label="主导航">
-        {navItems.map((item) => (
+        {mobileNavItems.map((item) => (
           <button
             key={item.to}
             className={isActive(item.to) ? 'active' : ''}

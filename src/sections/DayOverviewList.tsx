@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Clock, Mountain } from 'lucide-react'
+import { MapPin, Clock, Mountain, Hotel, Utensils } from 'lucide-react'
 import SectionTitle from '../components/SectionTitle'
 import QuoteBlock from '../components/QuoteBlock'
 import { DayPlan } from '../data/journal'
@@ -27,8 +27,12 @@ export default function DayOverviewList({ days }: DayOverviewListProps) {
               <h3>{day.title}</h3>
               <div className="day-card-meta">
                 <span><MapPin size={14} /> {day.route}</span>
-                <span><Clock size={14} /> {day.distance}</span>
+                <span><Clock size={14} /> {day.driveTime}</span>
                 <span><Mountain size={14} /> {day.altitude}</span>
+                <span><Hotel size={14} /> 宿：{day.stayCity}</span>
+                {day.meals.length > 0 && (
+                  <span className="day-card-meal"><Utensils size={14} /> {day.meals[0]}</span>
+                )}
               </div>
               <div className="day-card-quote">
                 <QuoteBlock text={day.quote} size="sm" />

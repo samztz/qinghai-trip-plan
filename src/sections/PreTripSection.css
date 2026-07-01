@@ -1,0 +1,89 @@
+.pre-trip-section {
+  padding: var(--space-xl) 0;
+}
+
+.pre-trip-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.pre-trip-card {
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 20px var(--shadow);
+  padding: var(--space-md);
+}
+
+.pre-trip-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-serif);
+}
+
+.pre-trip-card-header h3 {
+  font-size: 1.05rem;
+}
+
+.pre-trip-included .pre-trip-card-header {
+  color: #4a7c59;
+}
+
+.pre-trip-excluded .pre-trip-card-header {
+  color: var(--accent-terracotta);
+}
+
+.pre-trip-booking .pre-trip-card-header {
+  color: var(--accent-blue);
+}
+
+.pre-trip-special .pre-trip-card-header {
+  color: var(--accent-gold);
+}
+
+.pre-trip-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.pre-trip-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+.pre-trip-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.pre-trip-list-booking li::before,
+.pre-trip-list-special li::before {
+  content: '!';
+  color: var(--accent-terracotta);
+}
+
+@media (min-width: 768px) {
+  .pre-trip-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pre-trip-card {
+    padding: var(--space-lg);
+  }
+
+  .pre-trip-card-header h3 {
+    font-size: 1.15rem;
+  }
+
+  .pre-trip-list li {
+    font-size: 0.95rem;
+  }
+}

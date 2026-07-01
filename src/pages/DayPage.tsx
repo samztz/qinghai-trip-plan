@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, MapPin, Clock, Mountain } from 'lucide-react'
+import { ArrowLeft, ArrowRight, MapPin, Clock, Mountain, Hotel, Utensils, Info } from 'lucide-react'
 import QuoteBlock from '../components/QuoteBlock'
 import SpotCard from '../components/SpotCard'
 import DayFloatNav from '../components/DayFloatNav'
@@ -33,8 +33,9 @@ export default function DayPage({ days }: DayPageProps) {
           <h1>{day.title}</h1>
           <div className="day-meta">
             <span><MapPin size={14} /> {day.route}</span>
-            <span><Clock size={14} /> {day.distance}</span>
+            <span><Clock size={14} /> {day.driveTime}</span>
             <span><Mountain size={14} /> {day.altitude}</span>
+            <span><Hotel size={14} /> 宿：{day.stayCity}</span>
           </div>
         </div>
       </header>
@@ -42,6 +43,37 @@ export default function DayPage({ days }: DayPageProps) {
       <div className="day-quote">
         <QuoteBlock text={day.quote} size="lg" />
       </div>
+
+      {(day.meals.length > 0 || (day.notes && day.notes.length > 0)) && (
+        <section className="day-info-cards">
+          {day.meals.length > 0 && (
+            <div className="day-info-card">
+              <div className="day-info-card-header">
+                <Utensils size={16} />
+                <h3>今日觅食</h3>
+              </div>
+              <ul className="day-info-list">
+                {day.meals.map((meal, index) => (
+                  <li key={index}>{meal}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {day.notes && day.notes.length > 0 && (
+            <div className="day-info-card day-info-card-notes">
+              <div className="day-info-card-header">
+                <Info size={16} />
+                <h3>每日须知</h3>
+              </div>
+              <ul className="day-info-list">
+                {day.notes.map((note, index) => (
+                  <li key={index}>{note}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
 
       <DayGearAdvice advice={day.gearAdvice} />
 

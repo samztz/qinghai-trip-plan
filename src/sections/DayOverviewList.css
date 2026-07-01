@@ -78,6 +78,10 @@
   color: var(--ink-light);
 }
 
+.day-card-meal {
+  flex-basis: 100%;
+}
+
 .day-card-quote {
   margin-top: var(--space-sm);
 }

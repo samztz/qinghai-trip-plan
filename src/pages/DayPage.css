@@ -57,6 +57,69 @@
   margin: var(--space-lg) 0;
 }
 
+.day-info-cards {
+  display: grid;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .day-info-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.day-info-card {
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 14px var(--shadow);
+  padding: var(--space-md);
+}
+
+.day-info-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-blue);
+  font-family: var(--font-serif);
+}
+
+.day-info-card-header h3 {
+  font-size: 1rem;
+}
+
+.day-info-card-notes .day-info-card-header {
+  color: var(--accent-gold);
+}
+
+.day-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.day-info-list li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.9rem;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+
+.day-info-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.day-info-card-notes .day-info-list li::before {
+  content: '!';
+  color: var(--accent-terracotta);
+}
+
 .day-spots {
   margin-bottom: var(--space-xl);
 }
